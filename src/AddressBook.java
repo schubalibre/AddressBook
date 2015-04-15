@@ -92,7 +92,7 @@ public class AddressBook implements AddressBookInterface{
 			// wir holen uns die Details 
 			ContactDetails oldDetails = this.getDetails(key);
 			
-			// und löschen sie aus den zwei Maps (name, lastName)
+			// und löschen mit name und lastName die Einträge aus Maps
 			namesMap.remove(oldDetails.getName().trim().toLowerCase());
 			lastNamesMap.remove(oldDetails.getLastName().trim().toLowerCase());
 		}
