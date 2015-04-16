@@ -36,15 +36,24 @@ public class AddressBook implements AddressBookInterface{
 	}
 
 	@Override
-	public void addDetails(ContactDetails details) throws DuplicateKeyException{
+	public void addDetails(ContactDetails details) throws DuplicateKeyException, CreateKeyFailure{
+		
+		String name = details.getVorname();
+		String lastName = details.getVorname();
+		
+		//hier kontrollieren wir, ob die keys auch wirklich funktionieren
+		if((name == null || name.isEmpty()) || (lastName == null || lastName.isEmpty())){
+			throw new CreateKeyFailure();
+		}
+				
 		// name/ lastName wird hier aufbereitet trim toLowerCase
-		String name = details.getName().trim().toLowerCase();
-		String lastName = details.getLastName().trim().toLowerCase();
+		name = name.trim().toLowerCase();
+		lastName = lastName.trim().toLowerCase();
 		
 		// Kontrolle ob der name oder lastName schon benutzt wird
 		if(this.keyInUse(name) || this.keyInUse(lastName))
 			throw new DuplicateKeyException();
-		// alles klar wir kreieren die zwei Maps
+		// alles klar wir kreieren die zwei Elemente für unsere Map
 		namesMap.put(name, details);
 		namesMap.put(lastName, details);
 	}
@@ -92,8 +101,8 @@ public class AddressBook implements AddressBookInterface{
 			ContactDetails oldDetails = this.getDetails(key);
 			
 			// und löschen mit name und lastName die Einträge aus Maps
-			namesMap.remove(oldDetails.getName().trim().toLowerCase());
-			namesMap.remove(oldDetails.getLastName().trim().toLowerCase());
+			namesMap.remove(oldDetails.getVorname().trim().toLowerCase());
+			namesMap.remove(oldDetails.getNachname().trim().toLowerCase());
 		}
 	}
 
