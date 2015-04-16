@@ -80,7 +80,7 @@ public class AddressBook implements AddressBookInterface{
 	@Override
 	public int getNumberOfEntries() {
 		// gibt die größe der Liste zurück
-		return namesMap.size();
+		return namesMap.size() / 2;
 	}
 
 	@Override
