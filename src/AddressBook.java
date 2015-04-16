@@ -5,8 +5,8 @@ import java.util.TreeMap;
 public class AddressBook implements AddressBookInterface{
 	
 	/*
-	 * Die Idee des AddressBook ist es Kontakte unter zwei Schlüsseln zu speichern.
-	 * Damit wir dies bewerkstelligen können speichern wir die Kontaktdaten in zwei Maps ab.
+	 * Die Idee des AddressBook ist es Kontakte mit zwei Schlüsseln zu speichern.
+	 * Damit wir dies bewerkstelligen können speichern wir die Kontaktdaten zwei mal in namesMap ab.
 	 * Somit kann unter dem Namen und unter dem Nachnamen gesucht werden.
 	 * 
 	 * robert -> Robert, Dziuba, 123456789, .....
@@ -18,22 +18,21 @@ public class AddressBook implements AddressBookInterface{
 	
 	// zwei Maps für name und lastName
 	private Map<String, ContactDetails> namesMap = new TreeMap<String, ContactDetails>();
-	private Map<String, ContactDetails> lastNamesMap = new TreeMap<String, ContactDetails>();
 
 	@Override
 	public ContactDetails getDetails(String key) {
 		// key wird hier aufbereitet trim toLowerCase
 		key = key.trim().toLowerCase();
-		// wenn ein Eintrag bei namesMap existiert wird dieser zurück gegeben, sonst der lastNamesMap oder null
-		return namesMap.containsKey(key) ? namesMap.get(key) : lastNamesMap.get(key);
+		// wenn ein Eintrag bei namesMap existiert wird dieser zurück gegeben, sonst null
+		return namesMap.get(key);
 	}
 
 	@Override
 	public boolean keyInUse(String key) {
 		// key wird hier aufbereitet trim toLowerCase
 		key = key.trim().toLowerCase();
-		// es wird geschaut, ob namesMap den key besitzt (true oder false) sonst lastNamesMap (true oder false)
-		return namesMap.containsKey(key) | lastNamesMap.containsKey(key);
+		// es wird geschaut, ob namesMap den key besitzt (true oder false)
+		return namesMap.containsKey(key);
 	}
 
 	@Override
@@ -47,7 +46,7 @@ public class AddressBook implements AddressBookInterface{
 			throw new DuplicateKeyException();
 		// alles klar wir kreieren die zwei Maps
 		namesMap.put(name, details);
-		lastNamesMap.put(lastName, details);
+		namesMap.put(lastName, details);
 	}
 
 	@Override
@@ -80,7 +79,7 @@ public class AddressBook implements AddressBookInterface{
 
 	@Override
 	public int getNumberOfEntries() {
-		// da immer beide Maps den gleichen Inhalt haben, brauchen wir hier nur einen der beiden abzufragen
+		// gibt die größe der Liste zurück
 		return namesMap.size();
 	}
 
@@ -94,7 +93,7 @@ public class AddressBook implements AddressBookInterface{
 			
 			// und löschen mit name und lastName die Einträge aus Maps
 			namesMap.remove(oldDetails.getName().trim().toLowerCase());
-			lastNamesMap.remove(oldDetails.getLastName().trim().toLowerCase());
+			namesMap.remove(oldDetails.getLastName().trim().toLowerCase());
 		}
 	}
 
