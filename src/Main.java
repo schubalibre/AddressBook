@@ -43,7 +43,7 @@ public class Main {
 
 	private static void getMyBookDetails() {
 		
-		ContactDetails a = myBook.getDetails("Robert");
+		ContactDetails a = myBook.getDetails("");
 		
 		System.out.println(a.getVorname() +", "+ a.getNachname());
 		
@@ -85,21 +85,21 @@ public class Main {
 		myBook.addDetails(d);
 		
 		
-		ContactDetails e = new ContactDetails(" ", " ");
-		
-		e.setTelefonnummer("123456789");
-		e.setMail("12345@web.de");
-		e.setAdresse("Sonntagstr. 27");
-		
-		myBook.addDetails(e);
-		
-		ContactDetails f = new ContactDetails(null, null);
-		
-		f.setTelefonnummer("123456789");
-		f.setMail("12345@web.de");
-		f.setAdresse("Sonntagstr. 27");
-		
-		myBook.addDetails(f);
+//		ContactDetails e = new ContactDetails(" ", " ");
+//		
+//		e.setTelefonnummer("123456789");
+//		e.setMail("12345@web.de");
+//		e.setAdresse("Sonntagstr. 27");
+//		
+//		myBook.addDetails(e);
+//		
+//		ContactDetails f = new ContactDetails(null, null);
+//		
+//		f.setTelefonnummer("123456789");
+//		f.setMail("12345@web.de");
+//		f.setAdresse("Sonntagstr. 27");
+//		
+//		myBook.addDetails(f);
 		
 	}
 	

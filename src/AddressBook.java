@@ -22,25 +22,31 @@ public class AddressBook implements AddressBookInterface{
 	@Override
 	public ContactDetails getDetails(String key) {
 		// key wird hier aufbereitet trim toLowerCase
-		key = key.trim().toLowerCase();
-		// wenn ein Eintrag bei namesMap existiert wird dieser zurück gegeben, sonst null
-		return namesMap.get(key);
+		key = this.getCleanKey(key);
+		if(this.keyInUse(key)){
+			// wenn ein Eintrag bei namesMap existiert wird dieser zurück gegeben, sonst null
+			return namesMap.get(key);
+		}
+		return null;
 	}
 
 	@Override
 	public boolean keyInUse(String key) {
 		// key wird hier aufbereitet trim toLowerCase
-		key = key.trim().toLowerCase();
+		key = this.getCleanKey(key);
 		// es wird geschaut, ob namesMap den key besitzt (true oder false)
-		return namesMap.containsKey(key);
+		if(key != null){
+			return namesMap.containsKey(key);
+		}
+		return false;
 	}
 
 	@Override
 	public void addDetails(ContactDetails details){
 		
 		// name/ lastName wird hier aufbereitet trim toLowerCase
-		String name = details.getVorname().trim().toLowerCase();
-		String lastName = details.getVorname().trim().toLowerCase();
+		String name = this.getCleanKey(details.getVorname());
+		String lastName = this.getCleanKey(details.getNachname());
 		
 		// Kontrolle ob der name oder lastName schon benutzt wird
 		if(this.keyInUse(name) || this.keyInUse(lastName))
@@ -53,7 +59,7 @@ public class AddressBook implements AddressBookInterface{
 	@Override
 	public void changeDetails(String oldKey, ContactDetails details) {
 		// oldKey wird hier aufbereitet trim toLowerCase
-		oldKey = oldKey.trim().toLowerCase();
+		oldKey = this.getCleanKey(oldKey);
 		// wenn der Eintrag existiert.....
 		if(this.keyInUse(oldKey)){
 			// wir löschen als erstes die alten Einträge
@@ -87,15 +93,19 @@ public class AddressBook implements AddressBookInterface{
 	@Override
 	public void removeDetails(String key) {
 		// wir löschen aus beiden Maps die Einträge
-		
 		if(this.keyInUse(key)){
 			// wir holen uns die Details 
 			ContactDetails oldDetails = this.getDetails(key);
-			
 			// und löschen mit name und lastName die Einträge aus Maps
 			namesMap.remove(oldDetails.getVorname().trim().toLowerCase());
 			namesMap.remove(oldDetails.getNachname().trim().toLowerCase());
 		}
 	}
-
+	
+	private String getCleanKey(String key){
+		if( key != null && !key.isEmpty()){
+			return key.trim().toLowerCase();
+		}
+		return null;
+	}
 }
