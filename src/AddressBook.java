@@ -36,19 +36,11 @@ public class AddressBook implements AddressBookInterface{
 	}
 
 	@Override
-	public void addDetails(ContactDetails details) throws DuplicateKeyException, CreateKeyFailure{
+	public void addDetails(ContactDetails details){
 		
-		String name = details.getVorname();
-		String lastName = details.getVorname();
-		
-		//hier kontrollieren wir, ob die keys auch wirklich funktionieren
-		if((name == null || name.isEmpty()) || (lastName == null || lastName.isEmpty())){
-			throw new CreateKeyFailure();
-		}
-				
 		// name/ lastName wird hier aufbereitet trim toLowerCase
-		name = name.trim().toLowerCase();
-		lastName = lastName.trim().toLowerCase();
+		String name = details.getVorname().trim().toLowerCase();
+		String lastName = details.getVorname().trim().toLowerCase();
 		
 		// Kontrolle ob der name oder lastName schon benutzt wird
 		if(this.keyInUse(name) || this.keyInUse(lastName))

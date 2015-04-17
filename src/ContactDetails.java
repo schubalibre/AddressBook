@@ -6,8 +6,10 @@ public class ContactDetails {
 
 	// Konstruktoren
 
-	public ContactDetails(String vorname, String nachname, String adresse,
-			String telefonnummer, String mail) {
+	public ContactDetails(String vorname, String nachname, String adresse, String telefonnummer, String mail) throws UngueltigerNameException{
+		
+		if( (vorname == null || vorname.isEmpty()) || (nachname == null || nachname.isEmpty()) )
+			throw new UngueltigerNameException();
 
 		this.vorname = vorname;
 
@@ -60,18 +62,6 @@ public class ContactDetails {
 	}
 
 	// Setter
-
-	public void setNachname(String nachname) {
-
-		this.nachname = nachname;
-
-	}
-
-	public void setVorname(String vorname) {
-
-		this.vorname = vorname;
-
-	}
 
 	public void setAdresse(String Adresse) {
 
