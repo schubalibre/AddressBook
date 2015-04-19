@@ -8,12 +8,12 @@ public class Main {
 		fillMyBook();
 		System.out.println(myBook.getNumberOfEntries() + " Einträge");
 		System.out.println("---------------------------------------------");
-		getMyBookDetails();
-		System.out.println("---------------------------------------------");
-		changeMyBookDetails();
-		System.out.println("---------------------------------------------");
-		myBook.removeDetails("Roberto");
-		System.out.println(myBook.getNumberOfEntries() + " Einträge");
+//		getMyBookDetails();
+//		System.out.println("---------------------------------------------");
+//		changeMyBookDetails();
+//		System.out.println("---------------------------------------------");
+//		myBook.removeDetails("Roberto");
+//		System.out.println(myBook.getNumberOfEntries() + " Einträge");
 		
 	}
 
@@ -43,7 +43,7 @@ public class Main {
 
 	private static void getMyBookDetails() {
 		
-		ContactDetails a = myBook.getDetails("");
+		ContactDetails a = myBook.getDetails("Robert");
 		
 		System.out.println(a.getVorname() +", "+ a.getNachname());
 		
@@ -83,6 +83,8 @@ public class Main {
 		d.setAdresse("Sonntagstr. 27");
 		
 		myBook.addDetails(d);
+		
+		System.out.println(myBook.keyInUse(null));
 		
 		
 //		ContactDetails e = new ContactDetails(" ", " ");

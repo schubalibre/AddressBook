@@ -6,10 +6,10 @@ public class ContactDetails {
 
 	// Konstruktoren
 
-	public ContactDetails(String vorname, String nachname, String adresse, String telefonnummer, String mail) throws UngueltigerNameException{
+	public ContactDetails(String vorname, String nachname, String adresse, String telefonnummer, String mail) throws EmptyStringForSurnameOrLastname_Exception{
 		
-		if( (vorname == null || vorname.isEmpty()) || (nachname == null || nachname.isEmpty()) )
-			throw new UngueltigerNameException();
+		if( vorname.isEmpty() || nachname.isEmpty() )
+			throw new EmptyStringForSurnameOrLastname_Exception();
 
 		this.vorname = vorname;
 
