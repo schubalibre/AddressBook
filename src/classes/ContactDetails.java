@@ -1,3 +1,7 @@
+package classes;
+import exceptions.EmptyStringForSurnameOrLastname_Exception;
+
+
 public class ContactDetails {
 
 	// Attribute

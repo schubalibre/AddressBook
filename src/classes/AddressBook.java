@@ -1,5 +1,13 @@
+package classes;
+import interfaces.AddressBookInterface;
+
+import java.util.ArrayList;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
+
+import exceptions.DetailsNotFoundException;
+import exceptions.DuplicateKeyException;
 
 public class AddressBook implements AddressBookInterface {
 
@@ -77,7 +85,22 @@ public class AddressBook implements AddressBookInterface {
 	// wird noch nicht genutzt
 	@Override
 	public ContactDetails[] search(String keyPrefix) {
-		// TODO Auto-generated method stub
+		
+		keyPrefix = this.getCleanKey(keyPrefix);
+		
+		if(keyPrefix.length() > 0){
+			Set<String> allKeys = namesMap.keySet();
+			ContactDetails[] contactDetails = new ContactDetails[this.getNumberOfEntries()];
+			int i = 0;
+			
+			for(String key : allKeys){
+				if(key.contains(keyPrefix)){
+					contactDetails[i] = this.getDetails(key);
+					i++;
+				}
+			}
+			return contactDetails;
+		}
 		return null;
 	}
 

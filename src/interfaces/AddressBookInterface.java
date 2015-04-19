@@ -1,3 +1,5 @@
+package interfaces;
+import classes.ContactDetails;
 
 public interface AddressBookInterface {
 	

@@ -1,3 +1,4 @@
+package classes;
 
 public class Main {
 	
@@ -8,6 +9,15 @@ public class Main {
 		fillMyBook();
 		System.out.println(myBook.getNumberOfEntries() + " Einträge");
 		System.out.println("---------------------------------------------");
+		
+		ContactDetails[] details = new ContactDetails[10];
+		
+		details = myBook.search("Ber");
+		if(details.length > 0){
+			for(ContactDetails detail : details){
+				//System.out.println(detail.getVorname());
+			}
+		}
 //		getMyBookDetails();
 //		System.out.println("---------------------------------------------");
 //		changeMyBookDetails();
@@ -84,7 +94,7 @@ public class Main {
 		
 		myBook.addDetails(d);
 		
-		System.out.println(myBook.keyInUse(null));
+		//System.out.println(myBook.keyInUse(null));
 		
 		
 //		ContactDetails e = new ContactDetails(" ", " ");
