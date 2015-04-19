@@ -1,4 +1,5 @@
 package classes;
+
 import interfaces.AddressBookInterface;
 
 import java.util.ArrayList;
@@ -48,17 +49,18 @@ public class AddressBook implements AddressBookInterface {
 
 	@Override
 	public void addDetails(ContactDetails details) {
+		if (details != null) {
+			// name/ lastName wird hier aufbereitet trim toLowerCase
+			String name = this.getCleanKey(details.getVorname());
+			String lastName = this.getCleanKey(details.getNachname());
 
-		// name/ lastName wird hier aufbereitet trim toLowerCase
-		String name = this.getCleanKey(details.getVorname());
-		String lastName = this.getCleanKey(details.getNachname());
-
-		// Kontrolle ob der name oder lastName schon benutzt wird
-		if (this.keyInUse(name) || this.keyInUse(lastName))
-			throw new DuplicateKeyException();
-		// alles klar wir kreieren die zwei Elemente für unsere Map
-		namesMap.put(name, details);
-		namesMap.put(lastName, details);
+			// Kontrolle ob der name oder lastName schon benutzt wird
+			if (this.keyInUse(name) || this.keyInUse(lastName))
+				throw new DuplicateKeyException();
+			// alles klar wir kreieren die zwei Elemente für unsere Map
+			namesMap.put(name, details);
+			namesMap.put(lastName, details);
+		}
 	}
 
 	@Override
@@ -66,7 +68,7 @@ public class AddressBook implements AddressBookInterface {
 		// oldKey wird hier aufbereitet trim toLowerCase
 		oldKey = this.getCleanKey(oldKey);
 		// wenn der Eintrag existiert.....
-		if (this.keyInUse(oldKey)) {
+		if (this.keyInUse(oldKey) && details!= null) {
 			// wir löschen als erstes die alten Einträge
 			this.removeDetails(oldKey);
 
@@ -85,16 +87,17 @@ public class AddressBook implements AddressBookInterface {
 	// wird noch nicht genutzt
 	@Override
 	public ContactDetails[] search(String keyPrefix) {
-		
+
 		keyPrefix = this.getCleanKey(keyPrefix);
-		
-		if(keyPrefix.length() > 0){
+
+		if (keyPrefix.length() > 0) {
 			Set<String> allKeys = namesMap.keySet();
-			ContactDetails[] contactDetails = new ContactDetails[this.getNumberOfEntries()];
+			ContactDetails[] contactDetails = new ContactDetails[this
+					.getNumberOfEntries()];
 			int i = 0;
-			
-			for(String key : allKeys){
-				if(key.contains(keyPrefix)){
+
+			for (String key : allKeys) {
+				if (key.contains(keyPrefix)) {
 					contactDetails[i] = this.getDetails(key);
 					i++;
 				}
